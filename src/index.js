@@ -9,6 +9,7 @@ import {
 import { handleChannelSelectMenu } from './handlers/channel-select-menus/channelSelectMenuHandler.js';
 import { handleStartQuizButton } from './handlers/buttons/startQuizButtonHandler.js';
 import { handleQuizAnswerButton } from './handlers/buttons/quizAnswerButtonHandler.js';
+import Fastify from 'fastify';
 
 dotenv.config({ quiet: true });
 
@@ -23,13 +24,33 @@ export const client = new Client({
   partials: [Partials.Channel]
 });
 
+const fastify = Fastify({
+  logger: false
+});
+
+// log the bot in
 (async () => {
   client.login(process.env.DISCORD_TOKEN);
 })();
 
+// define ping route
+fastify.get('/ping', function (request, reply) {
+  reply.status(200).send('pong');
+})
+
 // Log when the bot is ready
 client.once('ready', () => {
   console.log(`BrainBuzz is up and running!`);
+
+  // have the server listen on the specified port
+  fastify.listen({ port: process.env.PORT, host: '0.0.0.0' }, function (err, address) {
+    if (err) {
+      fastify.log.error(err)
+      process.exit(1)
+    }
+
+    console.log(`Port ${process.env.PORT}`);
+  })
 });
 
 client.on('interactionCreate', async (interaction) => {
