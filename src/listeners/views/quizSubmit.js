@@ -10,7 +10,7 @@ export default (app) => {
         await ack();
         // 2️⃣ Extrage quiz_id din private_metadata și sesiunea asociată
         const quizId = view.private_metadata;
-        const session = QuizSessionManager.getQuizSessionMetadata(quizId);
+        const session = await QuizSessionManager.getQuizSessionMetadata(quizId);
 
         if (!session) {
             // Sesiune inexistentă sau expirat
@@ -41,7 +41,7 @@ export default (app) => {
         // 4️⃣ Trimite confirmare către user
         try {
             // Preluăm sesiunea și meta-informațiile
-            const session = QuizSessionManager.getQuizSessionMetadata(quizId)
+            const session = await QuizSessionManager.getQuizSessionMetadata(quizId)
             const { creatorUserID, channelID } = session;
 
             await client.chat.postMessage({
@@ -84,6 +84,6 @@ export default (app) => {
         }
 
         // update session with user answer
-        session.usersAnswered.push(body.user.id);
+        await QuizSessionManager.addUserAnswered(quizId, body.user.id);
     });
 }

@@ -48,7 +48,7 @@ class ServerClient {
             }
         });
 
-        // map quiz types to slack select menu options format
+        // storage quiz types to slack select menu options format
         return response.data.quizTypes.map(quizType => {
             return {
               text: {

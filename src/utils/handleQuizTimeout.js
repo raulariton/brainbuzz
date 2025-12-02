@@ -35,7 +35,7 @@ export async function handleQuizTimeout(quizId, quizEndTime, app) {
         // fetch results from quiz engine and send results to top 3 users
         await sendResultsToUsers(quizId, topUsersWithImages, otherUsers, app);
 
-        const session = QuizSessionManager.getQuizSessionMetadata(quizId);
+        const session = await QuizSessionManager.getQuizSessionMetadata(quizId);
         if (!session) {
             console.warn(`No session found for quiz ${quizId}, skipping summary post.`);
             return;
