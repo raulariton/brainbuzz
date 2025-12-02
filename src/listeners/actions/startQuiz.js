@@ -10,7 +10,7 @@ export default (app) => {
         try {
             // 1️⃣ Extrage quiz_id
             const quizId = body.actions[0].value;
-            const session = QuizSessionManager.getQuizSessionMetadata(quizId)
+            const session = await QuizSessionManager.getQuizSessionMetadata(quizId)
 
             if (!session) {
                 // sesiună inexistentă sau deja expirată

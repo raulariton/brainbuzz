@@ -66,7 +66,7 @@ export async function postQuiz(
             ]
         });
 
-        QuizSessionManager.insert(quiz.quiz_id, {
+        await QuizSessionManager.insert(quiz.quiz_id, {
             quiz: quiz,
             type: quizType,
             endTime: endTime,
