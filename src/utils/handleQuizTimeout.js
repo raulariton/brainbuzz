@@ -37,7 +37,7 @@ export async function handleQuizTimeout(quizId, quizEndTime) {
     // fetch results from quiz engine and send rewards to top 3 users
     await sendResultsToTopUsers(quizId, top3, others);
 
-    const session = QuizSessionManager.getQuizSessionMetadata(quizId);
+    const session = await QuizSessionManager.getQuizSessionMetadata(quizId);
 
     if (!session) {
       console.warn(`No session found for quiz ${quizId}, skipping summary post.`);
@@ -99,7 +99,7 @@ export async function handleQuizTimeout(quizId, quizEndTime) {
     });
 
     console.info(`Deleting quiz session with ID ${quizId} from the map.`);
-    QuizSessionManager.clear(quizId);
+    await QuizSessionManager.clear(quizId);
   }, remainingTimeInMilliseconds);
 }
 

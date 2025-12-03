@@ -14,7 +14,7 @@ export async function handleQuizTypeSelectMenu(interaction) {
   // update quiz configuration session data
   const sessionID = interaction.customId.replace('select-quiz-type-', '');
 
-  QuizConfigurationSessionManager.set(sessionID, {
+  await QuizConfigurationSessionManager.set(sessionID, {
     quizTypeValue: selectedQuizTypeValue,
     quizTypeText: selectedQuizTypeLabel
   });
@@ -30,7 +30,7 @@ export async function handleQuizDurationSelectMenu(interaction) {
   // update quiz configuration session data
   const sessionID = interaction.customId.replace('select-quiz-duration-', '');
 
-  QuizConfigurationSessionManager.set(sessionID, {
+  await QuizConfigurationSessionManager.set(sessionID, {
     durationValue: selectedDuration
   });
 }

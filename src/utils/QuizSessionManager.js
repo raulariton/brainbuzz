@@ -1,3 +1,5 @@
+import Redis from 'ioredis';
+
 /**
  * @typedef {Object} QuizContent
  * @property {string} quizText - The quiz question text
@@ -17,10 +19,22 @@
  */
 
 class QuizSessionManager {
-  static map = new Map();
+  static storage = new Redis({
+    host: process.env.REDIS_QUIZ_SESSION_STORAGE_HOST,
+    port: process.env.REDIS_QUIZ_SESSION_STORAGE_PORT,
+    password: process.env.REDIS_QUIZ_SESSION_STORAGE_PASSWORD
+  })
 
-  static insert(quizId, quizMetadata) {
-    this.map.set(quizId, quizMetadata);
+  /**
+   * Inserts a new quiz session metadata entry.
+   * @param {string} quizId
+   * @param {QuizMetadata} quizMetadata
+   */
+  static async insert(quizId, quizMetadata) {
+    await this.storage.set(
+      quizId,
+      JSON.stringify(quizMetadata)
+    )
   }
 
   /**
@@ -28,12 +42,36 @@ class QuizSessionManager {
    * @param quizId
    * @return {QuizMetadata | undefined} The quiz session metadata, or undefined if not found
    */
-  static getQuizSessionMetadata(quizId) {
-    return this.map.get(quizId);
+  static async getQuizSessionMetadata(quizId) {
+    const jsonData = await this.storage.get(quizId);
+    return jsonData ? JSON.parse(jsonData) : undefined;
   }
 
-  static clear(quizId) {
-    this.map.delete(quizId);
+  /**
+   * Clears the quiz session metadata for a given quiz ID.
+   * @param {string} quizId
+   * @return {Promise<void>}
+   */
+  static async clear(quizId) {
+    await this.storage.del(quizId);
+  }
+
+  /**
+   * Adds a user ID to the list of users who have answered the quiz.
+   * @param {string} quizId
+   * @param {string} userId
+   * @return {Promise<void>}
+   */
+  static async addUserAnswered(quizId, userId) {
+    // get the current session metadata
+    const session = await this.getQuizSessionMetadata(quizId);
+
+    if (session) {
+      // append the user ID in the usersAnswered array
+      session.usersAnswered.push(userId);
+      // update (overwrite) key
+      await this.insert(quizId, session);
+    }
   }
 }
 

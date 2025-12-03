@@ -10,7 +10,7 @@ export async function handleChannelSelectMenu(interaction) {
   // update quiz configuration session data
   const sessionID = interaction.customId.replace('select-quiz-channel-', '');
 
-  QuizConfigurationSessionManager.set(sessionID, {
+  await QuizConfigurationSessionManager.set(sessionID, {
     channelId: selectedChannelId
   });
 }

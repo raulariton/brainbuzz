@@ -10,7 +10,7 @@ export async function handleQuizConfigSubmitButton(interaction) {
   const sessionID = interaction.customId.replace('submit-quiz-config-', '');
 
   // get quiz configuration data from session manager
-  const sessionData = QuizConfigurationSessionManager.getConfigData(sessionID);
+  const sessionData = await QuizConfigurationSessionManager.getConfigData(sessionID);
 
   /**
    * `sessionData` is undefined when:
@@ -47,7 +47,7 @@ export async function handleQuizConfigSubmitButton(interaction) {
   }
 
   // mark session as completed to prevent multiple submissions
-  QuizConfigurationSessionManager.clear(sessionID);
+  await QuizConfigurationSessionManager.clear(sessionID);
 
   // get channel object using ID
   // get guild (server) object
