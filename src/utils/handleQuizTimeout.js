@@ -37,7 +37,7 @@ export async function handleQuizTimeout(quizId, quizEndTime) {
     // fetch results from quiz engine and send rewards to top 3 users
     await sendResultsToTopUsers(quizId, top3, others);
 
-    const session = QuizSessionManager.getQuizSessionMetadata(quizId);
+    const session = await QuizSessionManager.getQuizSessionMetadata(quizId);
 
     if (!session) {
       console.warn(`No session found for quiz ${quizId}, skipping summary post.`);
@@ -69,11 +69,16 @@ export async function handleQuizTimeout(quizId, quizEndTime) {
     }
 
     // get creator's display name
-    const guild = await session.quizStartMessage.guild;
+    const guildID = session.guildID
+    // get guild object using ID
+    const guild = await client.guilds.fetch(guildID);
     const creator = await guild.members.fetch(session.creatorUserID);
+    // get the message object using ID
+    const quizStartMessage = await guild.channels.fetch(session.channelID)
+      .then(channel => channel.messages.fetch(session.quizStartMessageID));
 
     // start a thread from start quiz message with results
-    const thread = await session.quizStartMessage.startThread({
+    const thread = await quizStartMessage.startThread({
       name: `${creator.displayName}'s ${session.type} quiz results`,
       autoArchiveDuration: 10080, // 7 days
       reason: 'Posting quiz results and creating a discussion thread'
@@ -99,7 +104,7 @@ export async function handleQuizTimeout(quizId, quizEndTime) {
     });
 
     console.info(`Deleting quiz session with ID ${quizId} from the map.`);
-    QuizSessionManager.clear(quizId);
+    await QuizSessionManager.clear(quizId);
   }, remainingTimeInMilliseconds);
 }
 

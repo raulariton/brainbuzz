@@ -50,12 +50,13 @@ export async function fetchAndPostQuiz(
   );
 
   // store quiz metadata in quiz session manager
-  QuizSessionManager.insert(quiz.quiz_id, {
+  await QuizSessionManager.insert(quiz.quiz_id, {
     quiz,
     type: quizTypeText,
     endTime,
     channelID: channel.id,
-    quizStartMessage,
+    quizStartMessageID: quizStartMessage.id,
+    guildID: channel.guild.id,
     usersAnswered: [],
     creatorUserID: creatorID
   });

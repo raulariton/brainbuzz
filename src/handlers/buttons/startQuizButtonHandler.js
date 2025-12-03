@@ -6,7 +6,7 @@ export async function handleStartQuizButton(interaction) {
   const quizId = interaction.customId.replace('start-quiz-button-', '');
 
   // get quiz session metadata
-  const session = QuizSessionManager.getQuizSessionMetadata(quizId);
+  const session = await QuizSessionManager.getQuizSessionMetadata(quizId);
 
   if (!session) {
     return await interaction.reply({
