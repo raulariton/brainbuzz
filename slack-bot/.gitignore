@@ -1,0 +1,11 @@
+# node / npm
+node_modules/
+
+# IDE
+.idea/
+.vscode/
+
+# exclude .env.example
+!.env.example
+.env
+.env.*

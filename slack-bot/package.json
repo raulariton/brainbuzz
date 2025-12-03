@@ -1,0 +1,39 @@
+{
+  "name": "brainbuzz-slack-bot",
+  "version": "1.0.0",
+  "description": "This repository hosts the bot interface (Bolt.js) for the Brainbuzz bot.",
+  "homepage": "https://github.com/raulariton/brainbuzz-slack-bot#readme",
+  "bugs": {
+    "url": "https://github.com/raulariton/brainbuzz-slack-bot/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raulariton/brainbuzz-slack-bot.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "dependencies": {
+    "@slack/bolt": "^4.4.0",
+    "@slack/web-api": "^7.9.3",
+    "@supabase/supabase-js": "^2.53.0",
+    "axios": "^1.11.0",
+    "dotenv": "^17.2.0",
+    "ioredis": "^5.8.2",
+    "lowdb": "^7.0.1",
+    "moment": "^2.30.1",
+    "node-fetch": "^3.3.2",
+    "ordinal": "^1.0.3"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "prettier": "3.6.2"
+  }
+}

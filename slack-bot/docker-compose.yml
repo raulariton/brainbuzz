@@ -1,0 +1,15 @@
+services:
+  quiz-engine:
+    image: brainbuzz-quiz-engine:dev
+    env_file:
+      - .env.quizenginedocker_localdev
+    ports:
+      - "3001:3001"
+  slack-bot:
+    image: brainbuzz-slack-bot:dev
+    env_file:
+      - .env.localdev
+    ports:
+      - "3000:3000"
+    depends_on:
+      - quiz-engine
