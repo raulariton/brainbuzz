@@ -8,7 +8,7 @@ export async function handleQuizAnswerButton(interaction) {
   const selectedAnswerIndex = parseInt(quizIdAndAnswer[1], 10);
 
   // get quiz session metadata using quiz ID
-  const session = QuizSessionManager.getQuizSessionMetadata(quizId);
+  const session = await QuizSessionManager.getQuizSessionMetadata(quizId);
 
   if (!session) {
     return await interaction.reply({
@@ -41,7 +41,7 @@ export async function handleQuizAnswerButton(interaction) {
       isCorrectAnswer
     );
 
-    session.usersAnswered.push(interaction.user.id);
+    await QuizSessionManager.addUserAnswered(quizId, interaction.user.id);
 
     interaction.deferUpdate();
     return interaction.user.send({
