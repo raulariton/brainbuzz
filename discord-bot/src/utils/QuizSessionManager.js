@@ -13,7 +13,8 @@ import Redis from 'ioredis';
  * @property {string} type - The type of the quiz (e.g. "Historical", "Computer Trivia", etc.)
  * @property {string} endTime - ISO string of when the quiz expires/times out
  * @property {string} channelID - The ID of the channel where the quiz was posted
- * @property {string} quizStartMessage - The message object of the quiz announcement post, to be used to reply to it later
+ * @property {string} quizStartMessageID - The message ID of the quiz announcement post, to be used to reply to it later
+ * @property {string} guildID - The ID of the guild (server) where the quiz was posted
  * @property {string} usersAnswered - Set of user IDs who have answered the quiz
  * @property {string} [creatorUserID] - (Optional) User ID of the quiz creator (if not created with the auto-post service)
  */

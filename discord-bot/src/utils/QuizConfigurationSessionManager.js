@@ -37,6 +37,11 @@ class QuizConfigurationSessionManager {
       };
       await this.storage.set(sessionID, JSON.stringify(updatedData));
     }
+
+    // if no existing data, create new entry
+    else {
+      await this.storage.set(sessionID, JSON.stringify(configData));
+    }
   }
 
   /**

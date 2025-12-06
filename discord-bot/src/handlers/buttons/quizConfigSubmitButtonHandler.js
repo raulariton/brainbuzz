@@ -51,7 +51,7 @@ export async function handleQuizConfigSubmitButton(interaction) {
 
   // get channel object using ID
   // get guild (server) object
-  const guild = await interaction.client.guilds.cache.get(interaction.guildId);
+  const guild = await interaction.client.guilds.fetch(interaction.guildId);
   const channel = await guild.channels.fetch(channelId);
 
   await fetchAndPostQuiz(interaction, quizTypeValue, quizTypeText, channel, durationValue);

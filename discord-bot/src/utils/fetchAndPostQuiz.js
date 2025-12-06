@@ -55,7 +55,8 @@ export async function fetchAndPostQuiz(
     type: quizTypeText,
     endTime,
     channelID: channel.id,
-    quizStartMessage,
+    quizStartMessageID: quizStartMessage.id,
+    guildID: channel.guild.id,
     usersAnswered: [],
     creatorUserID: creatorID
   });
