@@ -19,9 +19,11 @@ import Redis from 'ioredis';
  */
 
 class QuizSessionManager {
-    static storage = new Redis(
-        process.env.REDIS_URL
-    );
+    static storage = new Redis({
+        host: process.env.REDIS_QUIZ_SESSION_STORAGE_HOST,
+        port: process.env.REDIS_QUIZ_SESSION_STORAGE_PORT,
+        password: process.env.REDIS_QUIZ_SESSION_STORAGE_PASSWORD,
+    });
 
     /**
      * Inserts a new quiz session metadata entry.
