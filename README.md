@@ -20,13 +20,19 @@
 
 and many more...
 
+## History
+
+BrainBuzz was developed originally at a summer internship at [Victory Square Partners](https://victorysquarepartners.com/) with fellow contributors, then later extended by [me](https://github.com/raulariton).
+
+The current repository serves as a monorepo for all three components of the project. The original repositories can be viewed at:
+
+- [Slack bot](https://github.com/raulariton/brainbuzz-slack-bot)
+- [Discord bot](https://github.com/raulariton/brainbuzz-quiz-engine)
+- [Quiz engine](https://github.com/raulariton/brainbuzz-quiz-engine)
+
 ## Availability
 
-> BrainBuzz is currently in development and will soon be available for public use in your servers.
-
-- Discord bot: 
-- Slack bot: 
-- Quiz engine: 
+BrainBuzz is currently in development and will soon be available for public use in your servers.
 
 ## Features
 
