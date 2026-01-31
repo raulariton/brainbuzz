@@ -20,6 +20,10 @@
 
 and many more...
 
+## Demo
+### Discord
+![Discord demo](assets/discord_demo.gif)
+
 ## History
 
 BrainBuzz was developed originally at a summer internship at [Victory Square Partners](https://victorysquarepartners.com/) with fellow contributors, then later extended by [me](https://github.com/raulariton).
