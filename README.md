@@ -27,7 +27,7 @@ BrainBuzz was developed originally at a summer internship at [Victory Square Par
 The current repository serves as a monorepo for all three components of the project. The original repositories can be viewed at:
 
 - [Slack bot](https://github.com/raulariton/brainbuzz-slack-bot)
-- [Discord bot](https://github.com/raulariton/brainbuzz-quiz-engine)
+- [Discord bot](https://github.com/AlexandruBotiz/Discord-Bot)
 - [Quiz engine](https://github.com/raulariton/brainbuzz-quiz-engine)
 
 ## Availability
