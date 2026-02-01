@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Build dev images" type="CompoundRunConfigurationType">
+    <toRun name="Build Discord bot image" type="docker-deploy" />
+    <toRun name="Build Quiz engine image" type="docker-deploy" />
+    <toRun name="Build Slack image" type="docker-deploy" />
+    <method v="2" />
+  </configuration>
+</component>
