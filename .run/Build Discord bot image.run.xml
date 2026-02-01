@@ -2,7 +2,7 @@
   <configuration default="false" name="Build Discord bot image" type="docker-deploy" factoryName="dockerfile" server-name="Docker">
     <deployment type="dockerfile">
       <settings>
-        <option name="imageTag" value="ghcr.io/raulariton/brainbuzz-discord-bot:dev" />
+        <option name="imageTag" value="brainbuzz-discord-bot:dev" />
         <option name="buildOnly" value="true" />
         <option name="containerName" value="brainbuzz-quiz-engine" />
         <option name="sourceFilePath" value="discord-bot/Dockerfile" />
