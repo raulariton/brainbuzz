@@ -31,7 +31,7 @@ export default (app) => {
 
         try {
             // placeholder
-            await client.chat.postMessage({
+            await client.chat.postEphemeral({
                 channel: body.channel_id,
                 text: "Here's your stats!",
                 blocks: [
