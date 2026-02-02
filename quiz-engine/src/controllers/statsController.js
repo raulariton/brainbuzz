@@ -1,10 +1,8 @@
-import { Request, Response } from 'express';
-
 export class StatsController {
   /**
    * Retrieves stats for either a user or a guild based on the scope parameter.
-   * @param {Request} req
-   * @param {Response} res
+   * @param {import('express').Request} req
+   * @param {import('express').Response} res
    * @return {Promise<e.Response>}
    */
   static async getStats(req, res) {
