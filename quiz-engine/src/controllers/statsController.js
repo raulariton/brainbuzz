@@ -42,12 +42,12 @@ export class StatsController {
       win_rate: 0.4,
       total_top_3_finishes: 3,
       total_correct_answers: 25,
-      total_participations: 30
     };
   }
 
   static async getGuildStats(guildId) {
     return {
+      guild_id: guildId,
       total_quizzes: 100,
       average_score: 0.75,
       average_participation: 0.6,
