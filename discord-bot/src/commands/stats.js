@@ -1,3 +1,5 @@
+import getStatsMessage from '../ui/statsMessage.js';
+
 /**
  *
  * @param {import('discord.js').ChatInputCommandInteraction} interaction The interaction the application received
@@ -22,25 +24,17 @@ export async function handleStatsCommand(interaction) {
   // defer reply to display 'BrainBuzz is thinking...' message
   await interaction.deferReply({ ephemeral: isEphemeral });
 
-  try {
-    if (scope === 'me') {
-      // placeholder
-      return await interaction.editReply({
-        content:
-          ':bar_chart: **Your Quiz Stats**\n\n**Quizzes Taken:** 5\n**Average Score:** 80%\n**Best Score:** 100%\n**Total Correct Answers:** 40\n**Total Questions Answered:** 50'
-      });
-    } else if (scope === 'all') {
-      // placeholder
-      return await interaction.editReply({
-        content:
-          ':bar_chart: **Server Quiz Stats**\n\n**Total Quizzes Taken:** 150\n**Average Score:** 75%\n**Highest Score:** 100%\n**Total Correct Answers:** 1200\n**Total Questions Answered:** 1600'
-      });
-    }
-  } catch (error) {
-    console.error('Error fetching or sending stats:', error);
-    return await interaction.editReply({
-      content:
-        ":warning: I'm sorry, but I couldn't retrieve the statistics at this time. Please try again later."
-    });
+  let id = null;
+  let name = null;
+  if (scope === 'me') {
+    id = interaction.user.id;
+    name = interaction.member?.nickname || interaction.user.username || 'Hey';
+  } else if (scope === 'all') {
+    id = interaction.guildId;
+    name = interaction.guild?.name || 'Hey';
   }
+
+  return await interaction.editReply({
+    content: await getStatsMessage(name, scope, id)
+  });
 }
