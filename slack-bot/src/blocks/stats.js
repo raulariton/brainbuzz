@@ -13,7 +13,7 @@ export default async function getStatsBlocks(name, scope, id) {
                 type: 'section',
                 text: {
                     type: 'mrkdwn',
-                    text: ':warning: Unable to fetch statistics at this time.'
+                    text: ':warning: I\'m to fetch statistics at this time.'
                 }
             }
         ];
@@ -41,7 +41,7 @@ export default async function getStatsBlocks(name, scope, id) {
             `:trophy: *Won ${stats.total_wins} times*${stats.total_wins > 0 ? '' : ' (I believe in you! :grin:)'}`,
             `:dart: *A ${(stats.win_rate * 100).toFixed(2)}% win rate*${stats.win_rate > 75 ? ' (Nice! :star-struck)' : ''}`,
             `:medal: *Placed ${stats.total_top_3_finishes} times in the top 3 of a quiz.*`,
-            `:white_check_mark: *Answered ${stats.total_correct_answers} questions correctly.*${stats.correctAnswers >= 0.8 * stats.total_quizzes ? ' (You know-it-all! :nerd-face:)' : ''}`
+            `:white_check_mark: *Answered ${stats.total_correct_answers} questions correctly.*${stats.total_correct_answers >= 0.8 * stats.total_quizzes ? ' (You know-it-all! :nerd_face:)' : ''}`
         ];
 
         return [
