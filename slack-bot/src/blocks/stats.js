@@ -57,8 +57,6 @@ export default async function getStatsBlocks(name, scope, id) {
 
     // 'all' stats blocks
     if (scope === 'all') {
-        
-    }
         const lines = [
             `${name === 'Hey' ? `${name}` : `*${name}*`} team, you guys have:`,
             `:microphone: *Hosted a total of ${stats.total_quizzes} quiz(zes)*`,
@@ -76,5 +74,6 @@ export default async function getStatsBlocks(name, scope, id) {
                     text: lines.join('\n')
                 }
             }
-        ]
+        ];
+    }
 }
