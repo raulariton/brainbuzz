@@ -163,3 +163,22 @@ export const getQuizTypes = async (lang) => {
     throw new Error(error);
   }
 }
+
+export const getUserStats = async (user_id) => {
+  try {
+    // user_id to string
+    const userIdStr = String(user_id);
+    const { data, error } = await supabaseClient.rpc('get_user_stats', { p_user_id: userIdStr });
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    // return only the first element since the rpc returns an array
+    return data[0];
+
+  } catch (error) {
+    logger.error('Error getting user stats from DB: ', error);
+    throw new Error('Failed to get user stats.');
+  }
+}

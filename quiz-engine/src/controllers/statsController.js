@@ -1,3 +1,6 @@
+import { getUserStats } from '../services/dbServices.js';
+import logger from '../utils/logger.js';
+
 export class StatsController {
   /**
    * Retrieves stats for either a user or a guild based on the scope parameter.
@@ -15,7 +18,13 @@ export class StatsController {
       // get user id from body
       const { user_id } = req.body;
 
-      const userStats = await StatsController.getUserStats(user_id);
+      let userStats;
+      try {
+        userStats = await StatsController.getUserStats(user_id);
+      } catch (error) {
+        logger.error('Error getting user stats: ', error.message);
+        return res.status(500).json({ error: 'Failed to get user stats', details: error.message });
+      }
 
       return res.json(userStats);
     } else if (scope === 'all') {
@@ -24,7 +33,13 @@ export class StatsController {
       // get guild id from body
       const { guild_id } = req.body;
 
-      const guildStats = await StatsController.getGuildStats(guild_id);
+      let guildStats;
+      try {
+        guildStats = await StatsController.getGuildStats(guild_id);
+      } catch (error) {
+        logger.error('Error getting guild stats: ', error.message);
+        return res.status(500).json({ error: 'Failed to get guild stats', details: error.message });
+      }
 
       return res.json(guildStats);
     }
@@ -34,14 +49,7 @@ export class StatsController {
   }
 
   static async getUserStats(userId) {
-    return {
-      user_id: userId,
-      total_quizzes: 5,
-      total_wins: 2,
-      win_rate: 0.4,
-      total_top_3_finishes: 3,
-      total_correct_answers: 25,
-    };
+    return await getUserStats(userId);
   }
 
   static async getGuildStats(guildId) {
