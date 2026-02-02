@@ -1,5 +1,5 @@
 import supabaseClient from '../../services/supabaseClient.js';
-import quizCreationModal from "../../blocks/quizCreationModal.js";
+import quizCreationModal from '../../blocks/quizCreationModal.js';
 
 /**
  * Listener for the /brainbuzz command to open a quiz configuration modal.
