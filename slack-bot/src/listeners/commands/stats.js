@@ -37,22 +37,21 @@ export default (app) => {
         if (arg === 'me') {
             id = body.user_id;
             /** @type {string} */
-            name =
-                (await client.users
-                    .info({ user: body.user_id })
-                    .then(
-                        /** @param {import('@slack/web-api').UsersInfoResponse} res */
-                        (res) => res.user.name
-                    )) || 'Hey';
+            name = await client.users.info({ user: body.user_id }).then(
+                /** @param {import('@slack/web-api').UsersInfoResponse} res */
+                (res) =>
+                    res.user.profile.first_name ||
+                    res.user.profile.real_name?.split(' ')[0] ||
+                    res.user.profile.display_name?.split(' ')[0] ||
+                    'Hey'
+            );
         } else if (arg === 'all') {
             id = body.team_id;
             name =
-                (await client.team
-                    .info()
-                    .then(
-                        /** @param {import('@slack/web-api').TeamInfoResponse} res */
-                        (res) => res.team.name
-                    )) || 'Hey';
+                (await client.team.info().then(
+                    /** @param {import('@slack/web-api').TeamInfoResponse} res */
+                    (res) => res.team.name
+                )) || 'Hey';
         }
 
         if (arg === 'me') {

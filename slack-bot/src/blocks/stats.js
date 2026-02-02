@@ -4,7 +4,7 @@ export default async function getStatsBlocks(name, scope, id) {
 
     let stats;
     try {
-        const stats = await ServerClient.getStats(scope, id);
+        stats = await ServerClient.getStats(scope, id);
     } catch (e) {
         console.error("Error fetching stats:", e);
 
@@ -37,8 +37,8 @@ export default async function getStatsBlocks(name, scope, id) {
 
         const lines = [
             `${name}, you have:`,
-            `- *Participated in ${stats.totalQuizzes} quiz(zes)*`,
-            `- *Won ${stats.correctAnswers} times*${stats.correctAnswers > 0 ? '' : ' (I believe in you! :grin:)'}`,
+            `- *Participated in ${stats.total_quizzes} quiz(zes)*`,
+            `- *Won ${stats.total_wins} times*${stats.total_wins > 0 ? '' : ' (I believe in you! :grin:)'}`,
             `- *A ${(stats.win_rate * 100).toFixed(2)}% win rate*${stats.win_rate > 75 ? ' (Nice! :star-struck)' : ''}`,
             `- *Placed ${stats.total_top_3_finishes} times in the top 3 of a quiz.*`,
             `- *Answered ${stats.total_correct_answers} questions correctly.*${stats.correctAnswers >= 0.8 * stats.total_quizzes ? ' (You know-it-all! :nerd-face:)' : ''}`
