@@ -10,6 +10,7 @@ export class StatsController {
     /** @type {'me' | 'all'} */
     const scope = req.query.scope;
 
+    // NOTE: I left the logic for 'all' option here for future reference
     if (scope === 'me') {
       // get user id from body
       const { user_id } = req.body;
@@ -44,6 +45,7 @@ export class StatsController {
   }
 
   static async getGuildStats(guildId) {
+    // placeholder response
     return {
       guild_id: guildId,
       total_quizzes: 100,

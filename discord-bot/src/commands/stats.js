@@ -13,7 +13,8 @@ export async function handleStatsCommand(interaction) {
   if (scope !== 'me' && scope !== 'all') {
     return await interaction.reply({
       content:
-        ':warning: **Incorrect Command Usage**\n\nUsage:\n- `/stats me` - View your personal quiz statistics.\n- `/stats all` - View global quiz statistics for the server.',
+        ':warning: **Incorrect Command Usage**\n\nUsage:\n- `/stats me` - View your personal quiz statistics.' + '',
+        // '\n- `/stats all` - View global quiz statistics for the server.',
       ephemeral: true
     });
   }

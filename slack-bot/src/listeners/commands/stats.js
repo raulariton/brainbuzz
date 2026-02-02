@@ -13,7 +13,7 @@ export default (app) => {
         const arg = (body.text || '').trim().toLowerCase();
 
         // validate arg
-        if (arg !== 'me' && arg !== 'all') {
+        if (arg !== 'me') {
             await client.chat.postEphemeral({
                 channel: body.channel_id,
                 user: body.user_id,
@@ -23,7 +23,8 @@ export default (app) => {
                         type: 'section',
                         text: {
                             type: 'mrkdwn',
-                            text: ':warning: *Incorrect Command Usage*\n\nUsage:\n- `/stats me` - View your personal quiz statistics.\n- `/stats all` - View global quiz statistics for the workspace.'
+                            text: ':warning: *Incorrect Command Usage*\n\nUsage:\n`/stats me` - View your personal quiz statistics.' + ''
+                                // '\n- `/stats all` - View global quiz statistics for the workspace.'
                         }
                     }
                 ]
@@ -32,6 +33,7 @@ export default (app) => {
             return;
         }
 
+        // NOTE: I left the logic for 'all' option here for future reference
         let id = null;
         let name = null;
         if (arg === 'me') {
