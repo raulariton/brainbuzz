@@ -1,3 +1,6 @@
+import ServerClient from '../../services/serverClient.js';
+import getStatsBlocks from '../../blocks/stats.js';
+
 /**
  * Listener for the /stats command to
  * view one's own or global (server) stats.
@@ -14,7 +17,7 @@ export default (app) => {
             await client.chat.postEphemeral({
                 channel: body.channel_id,
                 user: body.user_id,
-                text: "Incorrect command usage.",
+                text: 'Incorrect command usage.',
                 blocks: [
                     {
                         type: 'section',
@@ -24,28 +27,47 @@ export default (app) => {
                         }
                     }
                 ]
-            })
+            });
 
             return;
         }
 
-        try {
-            // placeholder
+        let id = null;
+        let name = null;
+        if (arg === 'me') {
+            id = body.user_id;
+            /** @type {string} */
+            name =
+                (await client.users
+                    .info({ user: body.user_id })
+                    .then(
+                        /** @param {import('@slack/web-api').UsersInfoResponse} res */
+                        (res) => res.user.name
+                    )) || 'Hey';
+        } else if (arg === 'all') {
+            id = body.team_id;
+            name =
+                (await client.team
+                    .info()
+                    .then(
+                        /** @param {import('@slack/web-api').TeamInfoResponse} res */
+                        (res) => res.team.name
+                    )) || 'Hey';
+        }
+
+        if (arg === 'me') {
             await client.chat.postEphemeral({
                 channel: body.channel_id,
-                text: "Here's your stats!",
-                blocks: [
-                    {
-                        type: 'section',
-                        text: {
-                            type: 'mrkdwn',
-                            text: ':bar_chart: *Your Quiz Stats*\n\n*Quizzes Taken:* 5\n*Average Score:* 80%\n*Best Score:* 100%\n*Total Correct Answers:* 40\n*Total Questions Answered:* 50'
-                        }
-                    }
-                ]
+                user: body.user_id,
+                text: 'Your BrainBuzz stats',
+                blocks: await getStatsBlocks(name, arg, id)
             });
-        } catch (error) {
-            console.error('Error fetching or sending stats:', error);
+        } else if (arg === 'all') {
+            await client.chat.postMessage({
+                channel: body.channel_id,
+                text: 'Server BrainBuzz stats',
+                blocks: await getStatsBlocks(name, arg, id)
+            });
         }
     });
 };

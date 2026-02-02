@@ -59,6 +59,19 @@ class ServerClient {
             }
         })
     }
+
+    static async getStats(scope, id) {
+        const response = await axiosClient.get('/stats', {
+            params: {
+                scope: scope,
+            },
+            data: {
+                ...(scope === 'me' ? { user_id: id } : { guild_id: id })
+            }
+        });
+
+        return response.data;
+    }
 }
 
 export default ServerClient;
