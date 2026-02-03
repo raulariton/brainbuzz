@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import { Client, GatewayIntentBits, InteractionType, Partials } from 'discord.js';
-import { handleCommand } from './commands/brainbuzz.js';
+import { handleBrainbuzzCommand } from './commands/brainbuzz.js';
 import { handleQuizConfigSubmitButton } from './handlers/buttons/quizConfigSubmitButtonHandler.js';
 import {
   handleQuizDurationSelectMenu,
@@ -10,6 +10,7 @@ import { handleChannelSelectMenu } from './handlers/channel-select-menus/channel
 import { handleStartQuizButton } from './handlers/buttons/startQuizButtonHandler.js';
 import { handleQuizAnswerButton } from './handlers/buttons/quizAnswerButtonHandler.js';
 import Fastify from 'fastify';
+import { handleStatsCommand } from './commands/stats.js';
 
 dotenv.config({ quiet: true });
 
@@ -56,7 +57,10 @@ client.once('ready', () => {
 client.on('interactionCreate', async (interaction) => {
   // Slash command handler
   if (interaction.isChatInputCommand()) {
-    return await handleCommand(interaction);
+    if (interaction.commandName === 'brainbuzz')
+      return await handleBrainbuzzCommand(interaction);
+    if (interaction.commandName === 'stats')
+      return await handleStatsCommand(interaction);
   }
 
   // Handle select menu interactions

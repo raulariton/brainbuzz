@@ -7,6 +7,7 @@ import brainbuzz from './listeners/commands/brainbuzz.js';
 import brainbuzzModal from './listeners/views/brainbuzzModal.js';
 import startQuiz from './listeners/actions/startQuiz.js';
 import quizSubmit from './listeners/views/quizSubmit.js';
+import stats from './listeners/commands/stats.js';
 const { App } = pkg;
 
 const app = new App({
@@ -30,6 +31,7 @@ brainbuzz(app);
 brainbuzzModal(app);
 startQuiz(app);
 quizSubmit(app);
+stats(app);
 
 (async () => {
     await app.start(process.env.PORT);
