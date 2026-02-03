@@ -15,15 +15,15 @@ jobs:
     strategy:
       matrix:
         service:
-          - name: discord-bot
+          - name: brainbuzz-discord-bot
             context: ./discord-bot
-            image: discord-bot
-          - name: slack-bot
+            image: brainbuzz-discord-bot
+          - name: brainbuzz-slack-bot
             context: ./slack-bot
-            image: slack-bot
-          - name: quiz-engine
+            image: brainbuzz-slack-bot
+          - name: brainbuzz-quiz-engine
             context: ./quiz-engine
-            image: quiz-engine
+            image: brainbuzz-quiz-engine
 
     steps:
       - name: Checkout repo
