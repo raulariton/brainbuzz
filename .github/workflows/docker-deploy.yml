@@ -1,0 +1,42 @@
+name: Docker Images CI
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    # define matrix to build and push multiple service images
+    strategy:
+      matrix:
+        service:
+          - name: discord-bot
+            context: ./discord-bot
+            image: discord-bot
+          - name: slack-bot
+            context: ./slack-bot
+            image: slack-bot
+          - name: quiz-engine
+            context: ./quiz-engine
+            image: quiz-engine
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.ACTION_TOKEN }}" | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ matrix.service.context }}
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/${{ matrix.service.image }}:latest
+            ghcr.io/${{ github.repository_owner }}/${{ matrix.service.image }}:${{ github.sha }}
